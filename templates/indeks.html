@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio - Juanda Pratama</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Tema Warna Dasar */
+            --primary: #1e1b4b; 
+            --accent: #0ea5e9; 
+            --bg-light: #f8fafc;
+            --text-dark: #0f172a;
+            
+            /* Warna Header */
+            --header-grad: linear-gradient(135deg, #09192f 0%, #0276a9 100%);
+            
+            /* Warna KOTAK FITUR */
+            --card-grad: linear-gradient(135deg, #09192f 0%, #0276a9 100%);
+            --card-grad-hover: linear-gradient(135deg, #0c213e 0%, #0ea5e9 100%);
+            --card-border: #0284c7;
+            --card-border-hover: #38bdf8;
+            --card-text: #e0f2fe; 
+            --card-title: #ffffff; 
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0; padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Animasi Melayang untuk Foto */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Animasi Melayang untuk Kotak Proyek & Pengalaman */
+        @keyframes floatCard {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ==========================================
+           DESAIN NAVBAR BARU (TOMBOL TERPISAH)
+           ========================================== */
+        .navbar {
+            position: fixed; 
+            top: 25px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            z-index: 2000; 
+            width: 100%;
+            pointer-events: none; /* Agar area kosong di sela tombol tidak memblokir klik ke website */
+        }
+
+        .navbar .logo {
+            display: none; 
+        }
+
+        .navbar .nav-menu { 
+            display: flex; 
+            gap: 15px; /* Jarak pemisah antar tombol */
+            justify-content: center;
+            align-items: center;
+            pointer-events: auto; /* Mengaktifkan kembali fungsi klik khusus untuk tombol */
+        }
+
+        /* Desain untuk masing-masing tombol secara terpisah */
+        .navbar .nav-menu a {
+            background: #0a1526; 
+            padding: 12px 24px;
+            border-radius: 30px;
+            color: #ffffff; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            transition: all 0.3s ease; 
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+
+        .navbar .nav-menu a:hover { 
+            color: var(--accent); 
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.4);
+            border-color: var(--accent);
+        }
+        
+        @media(max-width: 768px) {
+            .navbar { top: 15px; }
+            .navbar .nav-menu { gap: 10px; flex-wrap: wrap; }
+            .navbar .nav-menu a { padding: 8px 16px; font-size: 0.75rem; }
+        }
+
+        /* HERO SECTION */
+        header {
+            background: var(--header-grad); color: white; height: 100vh; 
+            display: flex; flex-direction: row; justify-content: space-between; align-items: center; 
+            padding: 0 4% 0 8%; position: relative; box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+            overflow: hidden; box-sizing: border-box;
+        }
+
+        .header-content { max-width: 60%; z-index: 2; }
+
+        .typing-text {
+            color: var(--accent); font-size: 1.2rem; font-weight: 600;
+            letter-spacing: 2px; margin-bottom: 5px; display: inline-block;
+            overflow: hidden; white-space: nowrap; border-right: 3px solid var(--accent); 
+            animation: typing 4s steps(40, end) infinite alternate, blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent); } }
+
+        header h1 { margin: 0; font-size: 4rem; font-weight: 700; letter-spacing: 1px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); white-space: nowrap; }
+        header h2 { margin: 10px 0 30px; font-size: 1.5rem; font-weight: 400; color: #cffafe; white-space: nowrap; }
+
+        .contact-links { display: flex; flex-wrap: wrap; gap: 15px; }
+        .contact-links a {
+            color: white; text-decoration: none; margin: 0; font-size: 0.95rem;
+            padding: 12px 24px; border-radius: 25px; background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease; display: inline-block;
+        }
+        .contact-links a:hover { 
+            background: var(--accent); border-color: var(--accent);
+            transform: translateY(-3px); box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
+        }
+
+        .profile-img {
+            width: 35vw; max-width: 450px; height: 35vw; max-height: 450px;
+            object-fit: cover; border-radius: 50%; border: 8px solid var(--accent); 
+            box-shadow: 0 0 40px rgba(14, 165, 233, 0.4); background-color: white; 
+            animation: float 4s ease-in-out infinite; flex-shrink: 0; 
+        }
+        .profile-img:hover { border-color: white; box-shadow: 0 0 50px rgba(255, 255, 255, 0.6); animation-play-state: paused; }
+
+        @media(max-width: 768px) {
+            header { flex-direction: column-reverse; justify-content: center; padding: 100px 5% 50px; text-align: center; height: auto; min-height: 100vh; }
+            .header-content { max-width: 100%; display: flex; flex-direction: column; align-items: center; }
+            header h1 { font-size: 2.8rem; white-space: normal; }
+            header h2 { font-size: 1.15rem; white-space: normal; }
+            .typing-text { font-size: 1rem; border-right: none; white-space: normal; animation: none; }
+            .contact-links { justify-content: center; }
+            .profile-img { width: 250px; height: 250px; margin: 0 0 30px 0; }
+        }
+
+        /* Container & Sections */
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 10; }
+        
+        section {
+            display: none; animation: fadeIn 0.5s ease-in-out; background: white;
+            border-radius: 16px; padding: 40px; margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 4px solid transparent;
+            transition: border-color 0.3s ease; scroll-margin-top: 120px; 
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        section:hover { border-top-color: #0ea5e9; }
+
+        .section-title {
+            color: var(--primary); font-size: 1.6rem; border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 12px; margin-top: 0; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
+        }
+
+        .gradient-box {
+            background: var(--card-grad); border: 1px solid var(--card-border);
+            padding: 25px; border-radius: 12px; color: var(--card-text);
+            font-size: 1.05rem; line-height: 1.8; box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
+        @media(min-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+        /* KOTAK MELAYANG TERUS MENERUS */
+        .card {
+            border: 1px solid var(--card-border); border-radius: 12px; padding: 25px;
+            background: var(--card-grad); box-shadow: 0 8px 20px rgba(2, 132, 199, 0.15);
+            transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        .card:nth-child(1) { animation-delay: 0s; }
+        .card:nth-child(2) { animation-delay: 0.5s; }
+        .card:nth-child(3) { animation-delay: 1.0s; }
+        .card:nth-child(4) { animation-delay: 1.5s; }
+        .card:nth-child(5) { animation-delay: 2.0s; }
+
+        .card:hover {
+            background: var(--card-grad-hover); box-shadow: 0 15px 30px rgba(2, 132, 199, 0.3);
+            border-color: var(--card-border-hover);
+            animation-play-state: paused;
+            transform: scale(1.03); 
+        }
+        
+        .card h3 { color: var(--card-title); margin: 0 0 5px; font-size: 1.25rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3); text-align: center; }
+        .card .date { font-size: 0.85rem; color: #38bdf8; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; }
+
+        .project-card { cursor: pointer; text-align: center; }
+        .project-card p { font-size: 0.9rem; color: var(--card-text); padding: 0 10px; margin-bottom: auto; }
+        .project-icon { 
+            font-size: 2.8rem; background: -webkit-linear-gradient(135deg, #7dd3fc, #0ea5e9); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+        }
+        
+        .btn-lihat {
+            display: inline-block; margin-top: 15px; padding: 10px 24px; background: var(--accent); color: white;
+            border-radius: 25px; font-size: 0.85rem; font-weight: 600; transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3); border: none; cursor: pointer; text-align: center;
+        }
+        .btn-lihat:hover { background: #0284c7; box-shadow: 0 6px 15px rgba(14, 165, 233, 0.5); transform: translateY(-2px); color: white; }
+
+        .btn-pdf-modal {
+            display: inline-block; margin-top: 15px; padding: 10px 24px; background: var(--accent); border: none;
+            color: white; border-radius: 25px; font-size: 0.85rem; font-weight: 600; transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3); cursor: pointer; text-align: center; text-decoration: none;
+        }
+        .btn-pdf-modal:hover { background: #0284c7; color: white; box-shadow: 0 6px 15px rgba(14, 165, 233, 0.5); transform: translateY(-2px); }
+
+        .badge {
+            display: inline-block; background: var(--card-grad); border: 1px solid var(--card-border); color: white;
+            padding: 8px 18px; border-radius: 25px; font-size: 0.9rem; font-weight: 500; margin: 0 8px 12px 0; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+        }
+        .badge.soft { background: #fff; color: #0ea5e9; border: 1px solid #38bdf8; box-shadow: none; }
+
+        /* Modal (Pop-up) Styles */
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto;
+            background-color: rgba(15, 23, 42, 0.8); backdrop-filter: blur(6px);
+        }
+        .modal-content {
+            background-color: #ffffff; margin: 8% auto; padding: 40px; border-radius: 16px; width: 85%; max-width: 650px;
+            position: relative; animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-top: 5px solid #0ea5e9;
+        }
+        @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .close-btn { color: #94a3b8; position: absolute; right: 25px; top: 20px; font-size: 30px; font-weight: bold; cursor: pointer; transition: color 0.3s; }
+        .close-btn:hover { color: var(--accent); }
+        .modal-body h2 { color: var(--primary); margin-top: 0; font-size: 1.5rem; }
+        
+        .modal-desc-box { 
+            background: var(--card-grad); border: 1px solid var(--card-border); padding: 20px; border-radius: 10px;
+            color: var(--card-text); font-size: 0.95rem; line-height: 1.8; margin-top: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .modal-desc-box ul { padding: 0; margin: 0; list-style: none; }
+        .modal-desc-box li { 
+            background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.1); padding: 12px 16px; margin-bottom: 12px;
+            border-radius: 8px; color: var(--card-text); font-size: 0.95rem; display: flex; align-items: flex-start; gap: 12px; transition: all 0.3s ease;
+        }
+        .modal-desc-box li:hover { background: rgba(0, 0, 0, 0.4); transform: translateX(3px); border-color: rgba(255, 255, 255, 0.3); }
+        .modal-desc-box li::before { content: '\f0da'; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #fde047; margin-top: 2px; }
+        .modal-tags { margin-top: 10px; }
+        .modal-tags span {
+            background: white; color: #0ea5e9; padding: 5px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; border: 1px solid #0ea5e9; margin-right: 6px; display: inline-block; margin-bottom: 5px;
+        }
+
+        /* ==========================================
+           STYLING HALAMAN DETAIL PENGALAMAN
+           ========================================== */
+        #detail-pengalaman { margin-top: 80px; }
+        .btn-kembali {
+            display: inline-block; background: white; color: var(--primary); border: 2px solid #e2e8f0;
+            padding: 10px 20px; border-radius: 25px; font-weight: 600; cursor: pointer; margin-bottom: 30px; transition: all 0.3s ease; font-size: 0.95rem;
+        }
+        .btn-kembali:hover { border-color: var(--accent); color: var(--accent); transform: translateX(-5px); }
+        
+        .detail-konten h2 { color: var(--primary); font-size: 2.2rem; margin: 0 0 10px 0; line-height: 1.3; }
+        .detail-konten .meta { color: var(--accent); font-weight: 600; font-size: 1rem; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px dashed #e2e8f0; }
+        .detail-konten p { font-size: 1.05rem; color: #334155; line-height: 1.8; margin-bottom: 15px; text-align: justify; }
+        
+        .detail-konten ul { padding-left: 20px; margin-bottom: 25px; }
+        .detail-konten ul li { font-size: 1.05rem; color: #334155; line-height: 1.8; margin-bottom: 10px; text-align: justify; }
+        .detail-konten ul li strong { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR BARU (TOMBOL TERPISAH) -->
+    <nav class="navbar">
+        <div class="nav-menu">
+            <a href="#home" onclick="showSection('home', event)">Home</a>
+            <a href="#tentang" onclick="showSection('tentang', event)">Tentang Saya</a>
+            <a href="#proyek" onclick="showSection('proyek', event)">Proyek & Penelitian</a>
+            <a href="#pengalaman" onclick="showSection('pengalaman', event)">Pengalaman</a>
+            <a href="#keterampilan" onclick="showSection('keterampilan', event)">Keterampilan</a>
+        </div>
+    </nav>
+
+    <!-- HEADER / HOME -->
+    <header id="home">
+        <div class="header-content">
+            <div class="typing-text">Halo, Saya seorang Web Developer & Programmer</div>
+            
+            <h1>Juanda Pratama</h1>
+            <h2>S1 Teknik Informatika | Universitas Malikussaleh</h2>
+            
+            <div class="contact-links">
+                <!-- Tautan Email buka di Gmail -->
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=pjuanda946@gmail.com" target="_blank">
+                    <i class="fa-solid fa-envelope"></i> pjuanda946@gmail.com
+                </a>
+                
+                <!-- Tautan WhatsApp Chat -->
+                <a href="https://wa.me/6282388897145?text=Halo%20Juanda,%20saya%20melihat%20website%20portofolio%20Anda%20dan%20tertarik%20untuk%20berdiskusi." target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> +62 823 8889 7145
+                </a>
+
+                <a href="https://www.linkedin.com/in/juanda-pratama-892693286" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+                <a href="#"><i class="fa-solid fa-location-dot"></i> Sumatera Barat</a>
+            </div>
+        </div>
+
+        <img src="{{ url_for('static', filename='image_9b2d87.jpg') }}" alt="Juanda Pratama" class="profile-img">
+    </header>
+
+    <div class="container">
+        
+        <!-- PROFIL -->
+        <section id="tentang">
+            <h2 class="section-title"><i class="fa-solid fa-user-astronaut"></i> Tentang Saya</h2>
+            <div class="gradient-box">
+                Lulusan S1 Teknik Informatika Universitas Malikussaleh dengan predikat <strong>Cumlaude</strong> (IPK 3.71). Saya berdedikasi tinggi dan memiliki minat mendalam dalam mengintegrasikan analisis data, pengembangan perangkat lunak, dan proses bisnis. Sebagai individu yang adaptif, saya terbiasa berkolaborasi dalam lingkungan tim yang dinamis, memadukan kemampuan komunikasi proaktif dengan pemikiran analitis untuk menghadirkan solusi digital yang berdampak nyata.
+            </div>
+        </section>
+
+        <!-- PROYEK -->
+        <section id="proyek">
+            <h2 class="section-title"><i class="fa-solid fa-laptop-code"></i> Proyek & Penelitian</h2>
+            <div class="grid">
+                
+                <div class="card project-card" onclick="openModal('modal1')">
+                    <i class="fa-solid fa-shield-halved project-icon"></i>
+                    <h3>Pengembangan Web & Game</h3> 
+                    <p>Pendeteksi Cyberbullying, Perangkingan Karyawan, Pencatatan Penjualan, dan Game Petualangan.</p>
+                    <span class="btn-lihat">Lihat Proyek</span>
+                </div>
+
+                <div class="card project-card" onclick="openModal('modal2')">
+                    <i class="fa-solid fa-book-journal-whills project-icon"></i>
+                    <h3>Publikasi & Artikel Ilmiah</h3>
+                    <p>Penerapan SVM Medis serta Publikasi Jurnal Teknik & Computer Vision.</p>
+                    <span class="btn-lihat">Lihat Publikasi</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PENGALAMAN -->
+        <section id="pengalaman">
+            <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Pengalaman</h2>
+            <div class="grid">
+                
+                <div class="card">
+                    <div>
+                        <h3>Sekretaris Umum</h3>
+                        <div class="date">LDK Al-Kautsar Unimal | Jan - Sep 2026</div>
+                    </div>
+                    <span class="btn-lihat" onclick="openDetailPengalaman('exp1')">Lihat Detail Lengkap</span>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <h3>Ketua Divisi Akpro</h3>
+                        <div class="date">LDF AL Muttaqin | Jan - Des 2025</div>
+                    </div>
+                    <span class="btn-lihat" onclick="openDetailPengalaman('exp2')">Lihat Detail Lengkap</span>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <h3>Magang di ADM Informatika</h3>
+                        <div class="date">Okt - Nov 2024</div>
+                    </div>
+                    <span class="btn-lihat" onclick="openDetailPengalaman('exp3')">Lihat Detail Lengkap</span>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <h3>Magang di Kantor Pos Lhokseumawe</h3>
+                        <div class="date">Agustus 2025</div>
+                    </div>
+                    <span class="btn-lihat" onclick="openDetailPengalaman('exp4')">Lihat Detail Lengkap</span>
+                </div>
+                
+                <div class="card">
+                    <div>
+                        <h3>Pertukaran Mahasiswa Merdeka</h3>
+                        <div class="date">Universitas Padjadjaran | Feb - Jul 2024</div>
+                    </div>
+                    <span class="btn-lihat" onclick="openDetailPengalaman('exp5')">Lihat Detail Lengkap</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- HALAMAN KHUSUS DETAIL PENGALAMAN -->
+        <section id="detail-pengalaman">
+            <button class="btn-kembali" onclick="showSection('pengalaman')">
+                <i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Pengalaman
+            </button>
+
+            <!-- KONTEN DETAIL 1: SEKRETARIS UMUM -->
+            <div id="detail-exp1" class="detail-konten" style="display: none;">
+                <h2>Sekretaris Umum LDK Al-Kautsar</h2>
+                <div class="meta"><i class="fa-regular fa-calendar"></i> Januari - September 2026 &nbsp;|&nbsp; <i class="fa-solid fa-location-dot"></i> Universitas Malikussaleh</div>
+                
+                <p>Sebagai Sekretaris Umum di Lembaga Dakwah Kampus (LDK) Al-Kautsar, saya dipercaya memegang peran manajerial tingkat atas yang berfokus pada efisiensi birokrasi, penjaminan mutu program kerja, serta manajemen sumber daya informasi. Posisi ini menuntut saya untuk bertindak sebagai motor penggerak administrasi yang profesional, sistematis, dan responsif guna memastikan seluruh pergerakan roda organisasi tetap berada pada jalur Standar Operasional Prosedur (SOP) yang ketat.</p>
+                <p>Masa jabatan ini memberi saya tantangan besar dalam mengelola dinamika internal tim, di mana saya harus memadukan kemampuan <em>leadership</em> dengan ketelitian tingkat tinggi dalam hal tata kelola data organisasi dan pembuatan keputusan strategis berdasarkan matriks performa pengurus.</p>
+                
+                <p><strong>Tanggung Jawab & Pencapaian Utama:</strong></p>
+                <ul>
+                    <li><strong>Manajemen Program "Evaluasi Pengurus":</strong> Merupakan pencapaian terbesar saya. Saya bertanggung jawab penuh dalam menginisiasi, menyusun rubrik penilaian, dan mengeksekusi program pemantauan kinerja pengurus yang dilakukan sebanyak 7 kali dalam satu periode. Hal ini secara signifikan meningkatkan kedisiplinan dan produktivitas tim hingga akhir masa jabatan.</li>
+                    <li><strong>Standardisasi Tata Kelola Administrasi:</strong> Merevitalisasi dan menyusun ulang sistem pengarsipan dokumen, mengelola alur surat-menyurat resmi, serta melakukan digitalisasi arsip penting LDK Al-Kautsar agar lebih aman, terpusat, dan mudah diakses oleh dewan inti.</li>
+                    <li><strong>Pelaporan & Dokumentasi Strategis:</strong> Memastikan setiap kegiatan kemahasiswaan berskala besar terdokumentasi dengan baik, menyusun notulensi rapat untuk pengambilan keputusan, serta merumuskan Laporan Pertanggungjawaban (LPJ) secara komprehensif di penghujung program kerja.</li>
+                </ul>
+            </div>
+
+            <!-- KONTEN DETAIL 2: KETUA DIVISI AKPRO -->
+            <div id="detail-exp2" class="detail-konten" style="display: none;">
+                <h2>Ketua Divisi Akpro LDF AL Muttaqin</h2>
+                <div class="meta"><i class="fa-regular fa-calendar"></i> Januari - Desember 2025 &nbsp;|&nbsp; <i class="fa-solid fa-users"></i> Pengembangan Akademik dan Profesi (SDM)</div>
+                
+                <p>Memimpin Divisi Pengembangan Akademik dan Profesi (Akpro) di Lembaga Dakwah Fakultas (LDF) AL Muttaqin, saya diberikan tanggung jawab esensial untuk merumuskan arah pengembangan Sumber Daya Manusia (SDM) bagi puluhan kader organisasi. Visi utama saya pada masa itu adalah menjembatani kesenjangan kemampuan mahasiswa antara tuntutan akademik di ruang kelas dengan realitas dunia profesional di lapangan.</p>
+                <p>Saya bekerja sama dengan tim untuk merancang ekosistem belajar yang suportif dan inklusif. Di posisi ini, saya dilatih untuk memiliki empati tinggi dalam mendengarkan keluhan kader, serta berpikir kritis untuk merumuskan solusi pelatihan yang berdampak nyata terhadap peningkatan kualitas mutu keanggotaan.</p>
+                
+                <p><strong>Tanggung Jawab & Pencapaian Utama:</strong></p>
+                <ul>
+                    <li><strong>Pemetaan Kompetensi & Talent Mapping:</strong> Secara aktif melakukan riset internal untuk mengidentifikasi minat, bakat, potensi kepemimpinan, dan kelemahan dari setiap kader organisasi guna menentukan arah <em>mentoring</em> yang presisi dan tepat sasaran.</li>
+                    <li><strong>Perancangan Silabus & Eksekusi Pelatihan:</strong> Mengonseptualisasikan modul, mencari narasumber ahli, dan menyelenggarakan berbagai agenda pelatihan intensif (seperti lokakarya dan seminar) yang dirancang khusus untuk mendongkrak keahlian <em>hardskill</em> maupun <em>softskill</em> anggota secara berkelanjutan.</li>
+                    <li><strong>Monitoring & Rekomendasi Karir Akademik:</strong> Mengawal progres perkembangan kompetensi para kader dari bulan ke bulan, memberikan sesi konseling secara personal, serta memberikan rekomendasi strategis bagi kemajuan karir akademik maupun organisasi mereka di kampus.</li>
+                </ul>
+            </div>
+
+            <!-- KONTEN DETAIL 3: MAGANG ADM -->
+            <div id="detail-exp3" class="detail-konten" style="display: none;">
+                <h2>Magang di Administrasi (ADM) Informatika</h2>
+                <div class="meta"><i class="fa-regular fa-calendar"></i> Oktober - November 2024 &nbsp;|&nbsp; <i class="fa-solid fa-laptop-code"></i> Web Development & Tata Usaha Akademik</div>
+                
+                <p>Selama menjalani program magang di bagian Tata Usaha Program Studi Teknik Informatika, saya terjun langsung ke dapur birokrasi kampus untuk memahami bagaimana ekosistem administrasi dan manajemen data operasional universitas dikelola setiap harinya. Magang ini bukan sekadar tentang pengarsipan dokumen, melainkan tentang efisiensi proses bisnis instansi pendidikan.</p>
+                <p>Melihat adanya peluang digitalisasi dalam lingkungan tata usaha, saya mengambil inisiatif untuk mengaplikasikan ilmu pemrograman dan rekayasa perangkat lunak yang saya pelajari di bangku kuliah untuk menunjang kegiatan operasional kampus, sekaligus menunjukkan kemampuan saya sebagai <em>problem-solver</em> teknologi.</p>
+                
+                <p><strong>Tanggung Jawab & Pencapaian Utama:</strong></p>
+                <ul>
+                    <li><strong>Pembangunan Platform Digital (Web Development):</strong> Sebagai inisiatif mandiri dan pencapaian puncak magang, saya merancang dan mengembangkan <em>website</em> kolaborasi khusus yang digunakan oleh Program Studi Teknik Informatika. <em>Website</em> ini berhasil mempermudah dokumentasi, pameran portofolio jurusan, serta memperkuat relasi kemitraan dengan instansi atau perusahaan luar.</li>
+                    <li><strong>Manajemen Database Mahasiswa:</strong> Dipercaya untuk menangani data sensitif dengan melakukan entri, pembaruan, dan rekapitulasi data ribuan mahasiswa prodi secara terstruktur dan sistematis menggunakan alat komputasi data, memastikan tingkat akurasi hingga 100%.</li>
+                    <li><strong>Birokrasi Persuratan Terpusat:</strong> Mengatur antrean birokrasi dan menerbitkan berbagai dokumen legal serta surat-menyurat resmi guna memfasilitasi kelancaran kegiatan akademik mahasiswa sehari-hari tanpa hambatan.</li>
+                </ul>
+            </div>
+
+            <!-- KONTEN DETAIL 4: KANTOR POS -->
+            <div id="detail-exp4" class="detail-konten" style="display: none;">
+                <h2>Magang di Kantor Pos Cabang Lhokseumawe</h2>
+                <div class="meta"><i class="fa-regular fa-calendar"></i> Agustus 2025 &nbsp;|&nbsp; <i class="fa-solid fa-database"></i> Manajemen Logistik & Data Operasional</div>
+                
+                <p>Berkesempatan melaksanakan program magang di salah satu instansi Badan Usaha Milik Negara (BUMN) yang legendaris, yakni Kantor Pos Cabang Lhokseumawe, memberikan saya wawasan dan pengalaman nyata mengenai kerasnya ritme kerja di sektor logistik dan rantai pasok (<em>supply chain</em>).</p>
+                <p>Di bawah tekanan jumlah paket harian yang masif, saya dilatih oleh para praktisi senior untuk bekerja dengan standar akurasi yang tidak bisa ditawar, kecepatan bertindak, serta keteraturan tingkat tinggi dalam menangani arus lalu lintas data dan fisik barang kiriman masyarakat.</p>
+                
+                <p><strong>Tanggung Jawab & Pencapaian Utama:</strong></p>
+                <ul>
+                    <li><strong>Optimalisasi Database Logistik & Audit:</strong> Melakukan rutinitas entri data harian, rekapitulasi manifest, dan merapikan sistem pengarsipan berkas pengiriman agar dokumentasinya dapat dipertanggungjawabkan serta mudah dilacak saat terjadi inspeksi maupun komplain pelanggan.</li>
+                    <li><strong>Operasional Perangkat Lunak Internal:</strong> Diberi kepercayaan untuk mengoperasikan sistem komputasi dan aplikasi internal milik PT Pos Indonesia guna memperbarui status pergerakan paket (<em>tracking resi</em>) dan menginput data logistik yang keluar-masuk secara <em>real-time</em>.</li>
+                    <li><strong>Dukungan Efisiensi Layanan (Back-Office):</strong> Secara aktif membantu kelancaran operasional administrasi di garda belakang untuk mencegah terjadinya penumpukan berkas (<em>bottleneck</em>), memastikan proses serah terima barang antar kurir berjalan sesuai standar operasional baku.</li>
+                </ul>
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                    <a href="{{ url_for('static', filename='sertifikat_pos.pdf') }}" target="_blank" class="btn-pdf-modal">
+                        <i class="fa-solid fa-file-pdf" style="margin-right: 5px;"></i> Lihat Sertifikat Magang (PDF)
+                    </a>
+                </div>
+            </div>
+
+            <!-- KONTEN DETAIL 5: PMM -->
+            <div id="detail-exp5" class="detail-konten" style="display: none;">
+                <h2>Pertukaran Mahasiswa Merdeka (PMM)</h2>
+                <div class="meta"><i class="fa-regular fa-calendar"></i> Februari - Juli 2024 &nbsp;|&nbsp; <i class="fa-solid fa-location-dot"></i> Universitas Padjadjaran (UNPAD), Jawa Barat</div>
+                
+                <p>Lolos sebagai salah satu delegasi unggulan dari Aceh dalam program nasional besutan Kemendikbudristek, yakni Pertukaran Mahasiswa Merdeka (PMM) di Universitas Padjadjaran (UNPAD), adalah salah satu pencapaian akademis dan sosial paling membanggakan bagi saya. Program lintas pulau ini sangat mentransformasi cara saya berpikir, memecahkan masalah, dan berinteraksi di lingkungan multikultural.</p>
+                <p>Selama satu semester penuh di Jawa Barat, program ini tidak hanya menuntut kecemerlangan adaptasi akademik di kampus tujuan yang bereputasi tinggi, melainkan juga wadah nyata dalam menanamkan jiwa kepemimpinan, kepedulian sosial yang konkret, serta merajut semangat toleransi kebangsaan.</p>
+                
+                <p><strong>Tanggung Jawab & Pencapaian Utama:</strong></p>
+                <ul>
+                    <li><strong>Eksplorasi Modul Nusantara:</strong> Berpartisipasi aktif dalam serangkaian lokakarya dan kunjungan lapangan intensif mengenai keberagaman sejarah, budaya, sistem kepercayaan, dan kearifan lokal masyarakat Sunda dan Jawa Barat, menghasilkan tulisan refleksi kebhinekaan yang komprehensif.</li>
+                    <li><strong>Pengabdian Masyarakat Terintegrasi:</strong> Bertindak sebagai panitia penggerak inti dalam mendesain dan mengeksekusi proyek kontribusi sosial berkelanjutan (penyuluhan masyarakat) yang menerjunkan mahasiswa langsung ke jantung masyarakat di Kecamatan Cicendo, memberikan solusi praktis atas isu sosial yang terjadi.</li>
+                    <li><strong>Networking & Kolaborasi Lintas Budaya:</strong> Sukses beradaptasi di luar zona nyaman dan membangun jejaring kolaborasi profesional serta pertemanan erat bersama ratusan talenta mahasiswa terbaik yang diseleksi dari seluruh perguruan tinggi se-Indonesia.</li>
+                </ul>
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                    <a href="{{ url_for('static', filename='sertifikat_pmm.pdf') }}" target="_blank" class="btn-pdf-modal">
+                        <i class="fa-solid fa-file-pdf" style="margin-right: 5px;"></i> Lihat Sertifikat PMM (PDF)
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- KEAHLIAN -->
+        <section id="keterampilan">
+            <h2 class="section-title"><i class="fa-solid fa-gears"></i> Keterampilan</h2>
+            
+            <div style="margin-bottom: 25px;">
+                <p style="font-weight: 600; margin-bottom: 10px; color: var(--primary);">Hard Skill:</p>
+                <span class="badge">Microsoft Office</span>
+                <span class="badge">Python</span>
+                <span class="badge">CSS</span>
+                <span class="badge">Visual Studio</span>
+                <span class="badge">Figma</span>
+                <span class="badge">Mysql</span>
+                <span class="badge">Canva</span>
+            </div>
+            
+            <div>
+                <p style="font-weight: 600; margin-bottom: 10px; color: var(--primary);">Soft Skill:</p>
+                <span class="badge soft">Kemampuan berpikir kritis dan logis</span>
+                <span class="badge soft">Kemampuan manajemen waktu</span>
+                <span class="badge soft">Kemampuan menganalisis data dan informasi</span>
+                <span class="badge soft">Kemampuan berkomunikasi dengan baik</span>
+                <span class="badge soft">Kemampuan menjalin relasi</span>
+                <span class="badge soft">Kemampuan bekerja dalam tim</span>
+                <span class="badge soft">Kemampuan mengolah data dan informasi dengan baik</span>
+                <span class="badge soft">Kemampuan bekerja dalam tekanan</span>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- KUMPULAN MODAL (POP-UP) -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal1')">&times;</span>
+            <div class="modal-body">
+                <h2>Pengembangan Web & Game</h2>
+                
+                <div class="modal-tags">
+                    <span>Python</span> 
+                    <span>Web Development</span> 
+                    <span>Game Development</span> 
+                    <span>Manajemen Data</span>
+                </div>
+                
+                <div class="modal-desc-box">
+                    <ul style="padding-left: 0; margin: 0; list-style: none;">
+                        <li style="margin-bottom: 10px;">
+                            <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                <span>Membuat Web Pendeteksi Cyberbullying Pada Tweet atau Komentar di Aplikasi X.</span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                <span>Membuat Web Perangkingan Karyawan Terbaik Pada Karyawan Cafe Mensa.</span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <div style="display: flex; align-items: flex-start; gap: 12px;">
+                                <span>Membuat Web Pencatatan Penjualan Bengkel.</span>
+                            </div>
+                        </li>
+                        
+                        <li style="cursor: pointer;" onclick="window.open('https://github.com/UsernameAnda/RepoGameAnda', '_blank')">
+                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                <span>Membuat Game Petualangan.</span>
+                                <span style="background: var(--accent); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; white-space: nowrap; margin-left: 15px;">
+                                    <i class="fa-brands fa-github"></i> GitHub
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal2')">&times;</span>
+            <div class="modal-body">
+                <h2>Publikasi & Penulisan Artikel</h2>
+                <div class="modal-tags"><span>Machine Learning</span> <span>Akademik</span></div>
+                <div class="modal-desc-box">
+                    <ul style="padding-left: 0; margin: 0; list-style: none;">
+                        <li style="margin-bottom: 10px; cursor: pointer;" onclick="window.open('{{ url_for('static', filename='jurnal1.pdf') }}', '_blank')">
+                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                <span>Penulisan Artikel Penerapan Algoritma SVM Dalam Mendeteksi Penyakit Iskemia Melalui Analisis EKG.</span>
+                                <span style="background: var(--accent); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; white-space: nowrap; margin-left: 15px;"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 10px; cursor: pointer;" onclick="window.open('{{ url_for('static', filename='jurnal2.pdf') }}', '_blank')">
+                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                <span>Publikasi Journal Of Deep Learning, Computer Vision and Digital Image Processing.</span>
+                                <span style="background: var(--accent); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; white-space: nowrap; margin-left: 15px;"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+                            </div>
+                        </li>
+                        <li style="cursor: pointer;" onclick="window.open('{{ url_for('static', filename='jurnal3.pdf') }}', '_blank')">
+                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                <span>Publikasi SULIWA: Jurnal Multidisiplin Teknik, Sains, Pendidikan dan Teknologi.</span>
+                                <span style="background: var(--accent); color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; white-space: nowrap; margin-left: 15px;"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId, event) {
+            if(event) event.preventDefault(); 
+            
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(sec => {
+                sec.style.display = 'none';
+            });
+
+            const header = document.getElementById('home');
+            
+            if (sectionId === 'detail-pengalaman') {
+                header.style.display = 'none'; 
+                document.getElementById('detail-pengalaman').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'instant' }); 
+            } else {
+                header.style.display = 'flex'; 
+                
+                if (sectionId === 'home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    const target = document.getElementById(sectionId);
+                    if (target) {
+                        target.style.display = 'block';
+                        setTimeout(() => {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 50);
+                    }
+                }
+            }
+        }
+
+        function openDetailPengalaman(expId) {
+            document.querySelectorAll('.detail-konten').forEach(el => el.style.display = 'none');
+            
+            const activeDetail = document.getElementById('detail-' + expId);
+            if(activeDetail) {
+                activeDetail.style.display = 'block';
+            }
+            
+            showSection('detail-pengalaman');
+        }
+
+        function openModal(id) {
+            document.getElementById(id).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === "modal") {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+    </script>
+</body>
+</html>
